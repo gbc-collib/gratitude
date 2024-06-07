@@ -1,15 +1,10 @@
 import "~/styles/globals.css";
 
-import { GeistSans } from "geist/font/sans";
 
 import {
     ClerkProvider,
-    SignInButton,
-    SignedIn,
-    SignedOut,
-    UserButton
 } from '@clerk/nextjs'
-import './globals.css'
+import TopNav from "./_components/TopNav";
 export default function RootLayout({
     children,
 }: {
@@ -18,13 +13,8 @@ export default function RootLayout({
     return (
         <ClerkProvider>
             <html lang="en">
-                <body>
-                    <SignedOut>
-                        <SignInButton />
-                    </SignedOut>
-                    <SignedIn>
-                        <UserButton />
-                    </SignedIn>
+                <body className="bg-extend-main-background">
+                    <TopNav />
                     {children}
                 </body>
             </html>
