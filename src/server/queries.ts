@@ -9,6 +9,7 @@ import { eq, and } from "drizzle-orm";
 
 export async function getPosts() {
     const posts = await db.query.posts.findMany({
+        orderBy: (model, { desc }) => desc(model.id),
     });
     return posts;
 };
@@ -47,19 +48,7 @@ export async function getMyFollowing() {
 
 }
 
-export async function followNewUser(targetId: string) {
-    const user = auth();
-    if (!user.userId) throw new Error("Unauthorized");
-    const result = await db.insert(followers).values({ followerId: user.userId, followingId: targetId });
-    return result;
-}
 
-export async function unfollowUser(targetId: string) {
-    const user = auth();
-    if (!user.userId) throw new Error("Unauthorized");
-    const result = await db.delete(followers).where(and(eq(followers.followingId, targetId), eq(followers.followerId, user.userId)));
-    return result;
-}
 
 export async function getFollowingPosts() {
     const users = await getMyFollowing();

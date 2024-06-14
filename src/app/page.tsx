@@ -1,9 +1,7 @@
 'use server';
-import Link from "next/link";
-import QuoteCard from "./_components/ItemCard";
+import QuoteCard from "./_components/QuoteCard";
 import { CreatePost } from "./_components/CreatePost";
 import LeftSideBar from "./_components/LeftSideBar";
-import { db } from "~/server/db";
 import { getPosts } from "~/server/queries";
 
 
@@ -16,7 +14,7 @@ export async function MainFeed() {
             <CreatePost />
             <div className="flex flex-col gap-2">
                 {posts.map((post) => (
-                    <QuoteCard post={post} />
+                    <QuoteCard post={post} key={post.id} />
                 ))}
             </div>
         </div>
