@@ -1,4 +1,3 @@
-'use server';
 import QuoteCard from "./_components/QuoteCard";
 import { CreatePost } from "./_components/CreatePost";
 import LeftSideBar from "./_components/LeftSideBar";
@@ -7,7 +6,7 @@ import { getPosts } from "~/server/queries";
 
 const dynamic = "force-dynamic";
 
-export async function MainFeed() {
+async function MainFeed() {
     const posts = await getPosts();
     return (
         <div className="min-h-screen flex-col items-center justify-center bg-extend-main-background">

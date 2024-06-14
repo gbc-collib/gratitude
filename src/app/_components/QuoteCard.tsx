@@ -14,6 +14,8 @@ import { UnfollowButton } from './UnfollowButton';
 import { followNewUser } from '../actions/users';
 
 export const dynamic = "force-dynamic";
+import { posts } from '~/server/db/schema';
+type Post = typeof posts.$inferSelect;
 
 
 export async function ModifyFollowerButton({ target }: { target: string }) {
@@ -25,9 +27,8 @@ export async function ModifyFollowerButton({ target }: { target: string }) {
     return isFollowing ? <UnfollowButton target={target} /> : <FollowButton target={target} />;
 }
 
-export default async function QuoteCard({ post }) {
+export default async function QuoteCard({ post }: { post: Post }) {
     const userInfo = await clerkClient.users.getUser(post.userId);
-
     return (
         <Card className="bg-extend-card-bg border-2 border-extend-accent text-extend-main-text">
             <div className="text-3xl flex flex-row items-end bg-extend-dark-card">

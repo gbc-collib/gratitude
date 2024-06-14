@@ -3,8 +3,6 @@ import "server-only";
 
 import { db } from "./db";
 import { auth } from '@clerk/nextjs/server';
-import { followers } from "./db/schema";
-import { eq, and } from "drizzle-orm";
 
 
 export async function getPosts() {
@@ -23,6 +21,7 @@ export async function getMyPosts() {
         where: (model, { eq }) => eq(model.userId, user.userId),
         orderBy: (model, { desc }) => desc(model.id),
     });
+    return posts;
 }
 
 export async function getMyFollowers() {
@@ -33,7 +32,6 @@ export async function getMyFollowers() {
         where: (model, { eq }) => eq(model.followingId, user.userId)
     })
     return followers;
-
 }
 
 export async function getMyFollowing() {
@@ -52,4 +50,5 @@ export async function getMyFollowing() {
 
 export async function getFollowingPosts() {
     const users = await getMyFollowing();
+    return users;
 }

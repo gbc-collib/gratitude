@@ -6,7 +6,7 @@ import { posts } from '~/server/db/schema';
 
 export async function createPost(formData: FormData) {
     const postContent = formData.get('content');
-    let user = auth();
+    const user = auth();
     if (!user.userId) throw new Error("Unauthorized");
     if (!postContent || typeof postContent != 'string') throw new Error("Invalid post");
     await db.insert(posts).values({

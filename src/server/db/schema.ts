@@ -1,12 +1,10 @@
 import { sql } from 'drizzle-orm';
 import {
-    index,
     pgTableCreator,
     serial,
     timestamp,
     varchar,
     integer,
-    date,
     boolean,
     unique
 } from "drizzle-orm/pg-core";
