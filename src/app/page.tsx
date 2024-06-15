@@ -4,9 +4,10 @@ import LeftSideBar from "./_components/LeftSideBar";
 import { getFriendsPosts, getPosts } from "~/server/queries";
 import { posts } from '~/server/db/schema';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
+import SideNav from "~/components/ui/side-nav";
 
 
-const dgnamic = "force-dynamic";
+const dynamic = "force-dynamic";
 
 type Post = typeof posts.$inferSelect;
 
@@ -28,7 +29,7 @@ export default async function HomePage() {
     const friendsPosts = await getFriendsPosts();
     return (
         <div className="grid grid-cols-3 gap-4 p-4">
-            <LeftSideBar />
+            <SideNav />
             <div className="flex flex-col justify-center">
                 <Tabs defaultValue="friends" className="">
                     <TabsList>
