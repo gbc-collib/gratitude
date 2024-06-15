@@ -1,15 +1,18 @@
 import QuoteCard from "./_components/QuoteCard";
 import { CreatePost } from "./_components/CreatePost";
 import LeftSideBar from "./_components/LeftSideBar";
-import { getPosts } from "~/server/queries";
+import { getFriendsPosts, getPosts } from "~/server/queries";
+import { posts } from '~/server/db/schema';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
 
 
-const dynamic = "force-dynamic";
+const dgnamic = "force-dynamic";
 
-async function MainFeed() {
-    const posts = await getPosts();
+type Post = typeof posts.$inferSelect;
+
+async function MainFeed({ posts }: { posts: Post[] }) {
     return (
-        <div className="min-h-screen flex-col items-center justify-center bg-extend-main-background">
+        <div className="flex-col items-center justify-center">
             <CreatePost />
             <div className="flex flex-col gap-2">
                 {posts.map((post) => (
@@ -21,10 +24,25 @@ async function MainFeed() {
 }
 
 export default async function HomePage() {
+    const posts = await getPosts();
+    const friendsPosts = await getFriendsPosts();
     return (
         <div className="grid grid-cols-3 gap-4 p-4">
             <LeftSideBar />
-            <MainFeed />
+            <div className="flex flex-col justify-center">
+                <Tabs defaultValue="friends" className="">
+                    <TabsList>
+                        <TabsTrigger value="friends">Friends</TabsTrigger>
+                        <TabsTrigger value="discover">Discover</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="discover">
+                        <MainFeed posts={posts} />
+                    </TabsContent>
+                    <TabsContent value="friends">
+                        <MainFeed posts={friendsPosts} />
+                    </TabsContent>
+                </Tabs>
+            </div>
             <LeftSideBar />
         </div>
     );

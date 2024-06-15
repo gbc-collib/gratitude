@@ -1,10 +1,18 @@
 import "~/styles/globals.css";
 
 
+import { Inter as FontSans } from "next/font/google"
 import {
     ClerkProvider,
 } from '@clerk/nextjs'
-import TopNav from "./_components/TopNav";
+
+const fontSans = FontSans({
+    subsets: ["latin"],
+    variable: "--font-sans",
+})
+
+import { cn } from "~/lib/utils"
+
 export default function RootLayout({
     children,
 }: {
@@ -13,8 +21,12 @@ export default function RootLayout({
     return (
         <ClerkProvider>
             <html lang="en">
-                <body className="bg-extend-main-background">
-                    <TopNav />
+                <body
+                    className={cn(
+                        "min-h-screen bg-background font-sans antialiased dark",
+                        fontSans.variable
+                    )}
+                >
                     {children}
                 </body>
             </html>

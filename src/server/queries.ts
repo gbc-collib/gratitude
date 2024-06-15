@@ -3,6 +3,8 @@ import "server-only";
 
 import { db } from "./db";
 import { auth } from '@clerk/nextjs/server';
+import { followers, posts } from "./db/schema";
+import { eq } from "drizzle-orm";
 
 
 export async function getPosts() {
@@ -48,7 +50,18 @@ export async function getMyFollowing() {
 
 
 
-export async function getFollowingPosts() {
-    const users = await getMyFollowing();
-    return users;
+export async function getFriendsPosts() {
+    const user = auth();
+    if (!user.userId) throw new Error("Unauthorized");
+
+    const query = await db
+        .select({
+            id: posts.id, userId: posts.userId, content: posts.content, isPublic: posts.isPublic, createdAt: posts.createdAt, tags: posts.tags,
+        })
+        .from(posts)
+        .innerJoin(followers, eq(posts.userId, followers.followingId))
+        .where(eq(followers.followerId, user.userId));
+    console.log(query);
+    return query;
+    // followers, posts.userId.eq(followers.followingId)).where(followers.followerId.eq(currentUserId);
 }

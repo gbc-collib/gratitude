@@ -1,17 +1,20 @@
 import 'server-only';
-import CardContent from '@mui/material/CardContent';
-import { CardActions } from '@mui/material';
-import { Button } from '@mui/material';
-import { Card } from '@mui/material';
 import { auth } from '@clerk/nextjs/server';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 import { clerkClient } from "@clerk/nextjs/server";
 import { isUserFollowing } from '~/utils/usersUtils';
 import { FollowButton } from './FollowButton';
 import { UnfollowButton } from './UnfollowButton';
-import { followNewUser } from '../actions/users';
+import { ProfilePic } from '~/components/ui/profile-pic';
+
+import {
+    Card,
+    CardContent,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "~/components/ui/card"
 
 export const dynamic = "force-dynamic";
 import { posts } from '~/server/db/schema';
@@ -30,19 +33,28 @@ export async function ModifyFollowerButton({ target }: { target: string }) {
 export default async function QuoteCard({ post }: { post: Post }) {
     const userInfo = await clerkClient.users.getUser(post.userId);
     return (
-        <Card className="bg-extend-card-bg border-2 border-extend-accent text-extend-main-text">
-            <div className="text-3xl flex flex-row items-end bg-extend-dark-card">
-                <img src={userInfo.imageUrl} className="w-12 h-12 rounded-full mr-2" />
-                <span>{userInfo.username}</span>
-                <ModifyFollowerButton target={post.userId} />
-            </div>
-            <CardContent className="border-extend-accent">
+        <Card >
+            <CardHeader className="">
+                <CardTitle>
+                    <div className="flex flex-wrap ">
+                        <ProfilePic url={userInfo.imageUrl} />
+                        <span className="align-text-bottom">{userInfo.username}</span>
+                        <ModifyFollowerButton target={post.userId} />
+                    </div>
+                </CardTitle>
+
+            </CardHeader>
+            <CardContent className="">
                 {post.content}
             </CardContent>
-            <CardActions>
-                <Button size="small" className="text-extend-main-text">Posted {post.createdAt.toLocaleDateString('en-US')}</Button>
-                <FavoriteBorderIcon className="text-extend-red" />
-            </CardActions>
+            <CardFooter>
+                <div className="flex flex-wrap">
+                    <p className="justify-start">Posted {post.createdAt.toLocaleDateString('en-US')}</p>
+                    <FavoriteBorderIcon className="justify-end" />
+                </div>
+            </CardFooter>
         </Card>
     );
 }
+
+
