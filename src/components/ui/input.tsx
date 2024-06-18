@@ -2,7 +2,6 @@ import * as React from "react"
 
 import { cn } from "~/lib/utils"
 
-//tslint:disable-next-line
 export interface InputProps
     extends React.InputHTMLAttributes<HTMLInputElement> { }
 

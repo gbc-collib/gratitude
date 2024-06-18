@@ -15,8 +15,12 @@ import { cn } from "~/lib/utils"
 
 export default function RootLayout({
     children,
+    profile,
+    feed,
 }: {
-    children: React.ReactNode
+    children: React.ReactNode,
+    profile: React.ReactNode,
+    feed: React.ReactNode
 }) {
     return (
         <ClerkProvider>
@@ -28,6 +32,8 @@ export default function RootLayout({
                     )}
                 >
                     {children}
+                    {feed}
+                    {profile}
                 </body>
             </html>
         </ClerkProvider>
