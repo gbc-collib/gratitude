@@ -4,7 +4,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
 import { getFriendsPosts, getPosts } from "~/server/queries";
 import QuoteCard from "./_components/QuoteCard";
 import { CreatePost } from "./_components/CreatePost";
-import { posts } from '~/server/db/schema';
+
+import type { posts } from '~/server/db/schema';
 
 
 

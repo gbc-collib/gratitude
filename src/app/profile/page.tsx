@@ -1,3 +1,3 @@
-export default async function Profile(){
+export default async function Profile() {
     return (<p>Profile</p>);
 }
