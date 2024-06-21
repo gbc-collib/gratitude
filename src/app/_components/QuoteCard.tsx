@@ -19,6 +19,7 @@ import {
 
 export const dynamic = "force-dynamic";
 import { posts } from '~/server/db/schema';
+import Link from 'next/link';
 type Post = typeof posts.$inferSelect;
 
 
@@ -38,8 +39,10 @@ export default async function QuoteCard({ post }: { post: Post }) {
             <CardHeader className="">
                 <CardTitle>
                     <div className="flex flex-wrap ">
+                        <Link href={"/profile/" + userInfo.id}>
                         <ProfilePic url={userInfo.imageUrl} />
                         <span className="align-text-bottom">{userInfo.username}</span>
+                        </Link>
                         <ModifyFollowerButton target={post.userId} />
                     </div>
                 </CardTitle>

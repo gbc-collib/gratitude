@@ -1,5 +1,6 @@
 'use client';
 import { useRouter } from "next/navigation";
+import { ReactNode } from "react";
 import { Button } from "~/components/ui/button"
 
 export default function SideNav() {
@@ -23,7 +24,7 @@ export default function SideNav() {
     )
 }
 
-function NavItem({ children }) {
+function NavItem({ children }: { children: ReactNode }) {
     return (
         <li className="bg-background text-xl border-b w-full">
             {children}

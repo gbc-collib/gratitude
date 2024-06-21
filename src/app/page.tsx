@@ -38,19 +38,20 @@ export async function Feed() {
                 <TabsTrigger value="discover">Discover</TabsTrigger>
             </TabsList>
             <TabsContent value="discover">
+                <CreatePost />
                 <MainFeed posts={posts} />
             </TabsContent>
             <TabsContent value="friends">
+                <CreatePost />
                 <MainFeed posts={friendsPosts} />
             </TabsContent>
         </Tabs>
     )
 }
 
-async function MainFeed({ posts }: { posts: Post[] }) {
+export async function MainFeed({ posts }: { posts: Post[] }) {
     return (
         <div className="flex-col items-center justify-center">
-            <CreatePost />
             <div className="flex flex-col gap-2">
                 {posts.map((post) => (
                     <QuoteCard post={post} key={post.id} />

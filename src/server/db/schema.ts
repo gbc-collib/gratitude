@@ -56,3 +56,23 @@ export const followers = createTable(
         unq: unique().on(t.followerId, t.followingId),
     })
 );
+
+export const groups = createTable(
+    "group",
+    {
+        id: serial("id").primaryKey(),
+        ownerId: varchar("ownerId", { length: 256 }).notNull(),
+        groupName: varchar("groupName", { length: 256 }).notNull()
+    }
+);
+
+export const groupMembers = createTable(
+    "groupMember",
+    {
+        id: serial("id").primaryKey().references(() => groups.id),
+        memberId: varchar("memberId", { length: 256 }).notNull()
+    },
+    (t) => ({
+        unq: unique().on(t.id, t.memberId),
+    }),
+)
