@@ -4,6 +4,7 @@ import "~/styles/globals.css";
 import { Inter as FontSans } from "next/font/google"
 import {
     ClerkProvider,
+    SignInButton,
 } from '@clerk/nextjs'
 
 const fontSans = FontSans({
@@ -12,6 +13,7 @@ const fontSans = FontSans({
 })
 
 import { cn } from "~/lib/utils"
+import { Button } from "~/components/ui/button";
 
 export default function RootLayout({
     children,
@@ -27,6 +29,11 @@ export default function RootLayout({
                         fontSans.variable
                     )}
                 >
+                    <header className="flex flex-wrap justify-end p-2">
+                        <SignInButton>
+                            <Button variant="outline" className="bg-green">Login</Button>
+                        </SignInButton>
+                    </header>
                     {children}
                 </body>
             </html>

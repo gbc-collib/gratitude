@@ -27,8 +27,6 @@ export async function getMyPosts() {
 }
 
 export async function getUsersPosts(userId: string) {
-    const user = auth();
-    if (!user.userId) throw new Error("Unauthorized");
 
     const posts = await db.query.posts.findMany({
         where: (model, { eq }) => eq(model.userId, userId),

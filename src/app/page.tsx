@@ -6,15 +6,17 @@ import QuoteCard from "./_components/QuoteCard";
 import { CreatePost } from "./_components/CreatePost";
 
 import type { posts } from '~/server/db/schema';
+import { auth } from "@clerk/nextjs/server";
 
 
 
 
 
 export default async function HomePage() {
+    const userId = auth()?.userId;
     return (
         <div className="grid grid-cols-3 gap-4 p-4">
-            <SideNav />
+            <SideNav userId={userId} />
             <div className="flex flex-col justify-center">
                 <Feed />
             </div>
@@ -29,23 +31,28 @@ const dynamic = "force-dynamic";
 type Post = typeof posts.$inferSelect;
 
 export async function Feed() {
+    const currentUser = auth();
     const posts = await getPosts();
-    const friendsPosts = await getFriendsPosts();
     return (
         <Tabs defaultValue="friends" className="">
             <TabsList>
-                <TabsTrigger value="friends">Friends</TabsTrigger>
+                {currentUser ?
+                    <TabsTrigger value="friends">Friends</TabsTrigger>
+                    : ''}
                 <TabsTrigger value="discover">Discover</TabsTrigger>
             </TabsList>
             <TabsContent value="discover">
                 <CreatePost />
                 <MainFeed posts={posts} />
             </TabsContent>
-            <TabsContent value="friends">
-                <CreatePost />
-                <MainFeed posts={friendsPosts} />
-            </TabsContent>
-        </Tabs>
+            {currentUser.userId ?
+                < TabsContent value="friends">
+                    <CreatePost />
+                    <MainFeed posts={await getFriendsPosts()} />
+                </TabsContent>
+                : <div>Login to see friends posts </div>
+            }
+        </Tabs >
     )
 }
 

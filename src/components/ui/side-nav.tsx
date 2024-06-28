@@ -1,16 +1,19 @@
 'use client';
-import { useRouter } from "next/navigation";
+import { auth } from '@clerk/nextjs/server';
+import Link from 'next/link'
 import { ReactNode } from "react";
 import { Button } from "~/components/ui/button"
+import { ProfilePic } from './profile-pic';
 
-export default function SideNav() {
-    const router = useRouter();
+export default function SideNav({ userId }: { userId: string | null }) {
     return (
         <nav className="border text-card-foreground">
             <div className="mx-2 my-3">
                 <ul className="flex flex-col gap-2 mx-2 justify-start">
-                    <NavItem><Button variant="ghost" className="p-2 justify-start w-full">Profile</Button></NavItem>
-                    <NavItem><Button variant="ghost" className="p-2 justify-start w-full">Groups</Button></NavItem>
+                    {userId ?
+                        <NavItem><Link href="/profile"><Button variant="ghost" className="p-2 justify-start w-full">Profile <ProfilePic id={userId} /></Button ></Link></NavItem>
+                        : ''}
+                    <NavItem><Link href="/groups"><Button variant="ghost" className="p-2 justify-start w-full">Groups</Button></Link></NavItem>
                     <NavItem><Button variant="ghost" className="p-2 justify-start w-full">Placeholder</Button></NavItem>
                     <NavItem><Button variant="ghost" className="p-2 justify-start w-full">Placeholder</Button></NavItem>
                     <NavItem><Button variant="ghost" className="p-2 justify-start w-full">Placeholder</Button></NavItem>
