@@ -5,6 +5,9 @@ import { Inter as FontSans } from "next/font/google"
 import {
     ClerkProvider,
     SignInButton,
+    SignOutButton,
+    SignedOut,
+    SignedIn
 } from '@clerk/nextjs'
 
 const fontSans = FontSans({
@@ -30,9 +33,17 @@ export default function RootLayout({
                     )}
                 >
                     <header className="flex flex-wrap justify-end p-2">
-                        <SignInButton>
-                            <Button variant="outline" className="bg-green">Login</Button>
-                        </SignInButton>
+                        <SignedOut>
+                            <SignInButton>
+                                <Button variant="outline" className="bg-green">Login</Button>
+                            </SignInButton>
+                        </SignedOut>
+                        <SignedIn>
+                            <SignOutButton>
+                                <Button variant="outline" className="bg-green">Log Out</Button>
+                            </SignOutButton>
+                        </SignedIn>
+
                     </header>
                     {children}
                 </body>

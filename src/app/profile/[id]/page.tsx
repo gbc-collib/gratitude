@@ -14,6 +14,8 @@ export default async function Profile({ params }: { params: { id: string } }) {
     }
     const userInfo = await clerkClient.users.getUser(id);
     console.log(userInfo.username);
+    const followerCount;
+    const followingCount;
 
     const isMyProfile = (id == currentUser.userId);
     return (

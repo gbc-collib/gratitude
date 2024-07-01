@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
 import { getFriendsPosts, getPosts } from "~/server/queries";
 import QuoteCard from "./_components/QuoteCard";
 import { CreatePost } from "./_components/CreatePost";
+import { RootLayout } from './layout';
 
 import type { posts } from '~/server/db/schema';
 import { auth } from "@clerk/nextjs/server";
@@ -34,7 +35,7 @@ export async function Feed() {
     const currentUser = auth();
     const posts = await getPosts();
     return (
-        <Tabs defaultValue="friends" className="">
+        <Tabs defaultValue="discover" className="">
             <TabsList>
                 {currentUser ?
                     <TabsTrigger value="friends">Friends</TabsTrigger>
