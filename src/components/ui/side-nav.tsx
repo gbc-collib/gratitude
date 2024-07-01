@@ -1,7 +1,6 @@
 'use client';
-import { auth } from '@clerk/nextjs/server';
 import Link from 'next/link'
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { Button } from "~/components/ui/button"
 import { ProfilePic } from './profile-pic';
 

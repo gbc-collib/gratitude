@@ -1,7 +1,7 @@
 import 'server-only';
 import { eq, and } from 'drizzle-orm';
 import { auth } from '@clerk/nextjs/server';
-import { posts, followers } from '~/server/db/schema';
+import { followers } from '~/server/db/schema';
 import { db } from '~/server/db';
 
 

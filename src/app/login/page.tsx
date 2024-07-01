@@ -1,9 +1,5 @@
 import {
-    ClerkProvider,
     SignInButton,
-    SignedIn,
-    SignedOut,
-    UserButton,
 } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
